@@ -70,8 +70,11 @@ int vtkPyFRContourFilter::RequestData(
                                  output->GetData());
 
   std::pair<float,float> crange = filter.ColorRange();
-  this->ColorRange[0] = crange.first;
-  this->ColorRange[1] = crange.second;
+  //lets push out the min and max by 15% on each side
+  const float delta = (crange.second - crange.first) * 0.15;
+  this->ColorRange[0] = crange.first - delta;
+  this->ColorRange[1] = crange.second + delta ;
+  std::cout << "Contour color range is: " << ColorRange[0] << " to " << ColorRange[1] << std::endl;
 
   output->SetColorPalette(this->ColorPalette,this->ColorRange);
   this->minmax = filter.DataRange();
