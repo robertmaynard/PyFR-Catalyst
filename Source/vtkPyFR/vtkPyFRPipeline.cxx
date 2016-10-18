@@ -47,6 +47,7 @@
 #include <vtkTextWidget.h>
 #include <vtkTextRepresentation.h>
 #include <vtkXMLUnstructuredGridReader.h>
+#include <vtkProperty.h>
 
 #include "vtkPyFRData.h"
 #include "vtkPyFRCrinkleClipFilter.h"
@@ -112,6 +113,9 @@ void vtkAddActor(vtkSmartPointer<Mapper> mapper,
 
   vtkNew<vtkActor> actor;
   actor->SetMapper(mapper);
+
+  actor->GetProperty()->SetSpecular(0.5);
+  actor->GetProperty()->SetSpecularPower(25.0);
 
   ren->AddActor(actor.GetPointer());
 }
@@ -618,6 +622,7 @@ int vtkPyFRPipeline::CoProcess(vtkCPDataDescription* dataDescription)
           output_camera(cam);
         }
       );
+
       const int magnification = 1;
       const int quality = 100;
       char fname[32] = {0};
