@@ -439,7 +439,6 @@ PV_PLUGIN_IMPORT(pyfr_plugin_fp64)
   // Add the actors to the renderer, set the background and size
     {
     vtkSMRenderViewProxy* rview = vtkSMRenderViewProxy::SafeDownCast(polydataViewer);
-
     vtkRenderer* ren = rview->GetRenderer();
     ren->AddActor2D(this->Timestamp);
     rview->UpdateVTKObjects();
@@ -594,6 +593,10 @@ int vtkPyFRPipeline::CoProcess(vtkCPDataDescription* dataDescription)
       vtkSMViewProxy* viewProxy =
         vtkSMViewProxy::SafeDownCast(views->GetItemAsObject(i));
       vtkSMPropertyHelper(viewProxy,"ViewTime").Set(dataDescription->GetTime());
+
+      const int v_size[2] = {2560,1551};
+      vtkSMPropertyHelper(viewProxy, "ViewSize").Set(v_size, 2);
+
       viewProxy->UpdateVTKObjects();
       viewProxy->Update();
 
