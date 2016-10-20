@@ -556,6 +556,9 @@ void vtkPyFRPipeline::SetColorRange(FPType low, FPType high)
 //----------------------------------------------------------------------------
 int vtkPyFRPipeline::CoProcess(vtkCPDataDescription* dataDescription)
 {
+  this->SetResolution(2560,1600);
+  this->SetSpecularLighting(0.8,50);
+
   vtkSMSessionProxyManager* sessionProxyManager =
     vtkSMProxyManager::GetProxyManager()->GetActiveSessionProxyManager();
 
